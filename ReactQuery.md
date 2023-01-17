@@ -41,7 +41,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
     const App = () => {
         return (
             <QueryClientProvider client={queryClient}>
-                <CatsFact />
+                <CatsFactExample />
             </QueryClientProvider>
         )
     }
@@ -51,8 +51,10 @@ Now that you have set up the **`QueryClient`**, you can use the **`useQuery`** h
 ```js
 import { useQuery } from 'react-query';
 
-const CatsFact = () => {
-    const { data, isLoading, error } = useQuery('cats', () => fetch('https://catfact.ninja/fact'));
+const CatsFactExample = () => {
+    const { data, isLoading, error } = useQuery("cats", () =>
+    fetch("https://catfact.ninja/fact").then((res) => res.json())
+  );
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -63,11 +65,9 @@ const CatsFact = () => {
     }
 
     return (
-        <ul>
-        {data.map((cat, index) => (
-            <li key={index}>{cat.fact}</li>
-        ))}
-        </ul>
+        <div>
+        <p>{data.fact}</p>
+        </div>
     );
 }
 ```
@@ -80,11 +80,11 @@ There are several benefits to using React Query for state management in your rea
 
 - **Performance:** React Query is optimized for performance, with features like automatic cache management and the ability to cancel queries when the component unmounts. This can help to improve the user experience in your application by ensuring that data is fetched efficiently and without unnecessary delays.
 
-- **Flexibility:** React Query has several options and configuration settings that let you tailor its functionality to your needs, making it incredibly adaptable. For instance, you may manually refresh the data using the **refetch** function or display a loading indicator while the data is being fetched using the **isFetching** property. If the fetch fails, you can also utilize the **error** property to show an error message. This makes it a wonderful option for developers that wish to have precise control over the state management of their applications.
+- **Flexibility:** React Query has several options and configuration settings that let you tailor its functionality to your needs, making it incredibly adaptable. For instance, you may manually refresh the data using the **refetch** function or display a loading indicator while the data is being fetched using the **isLoading** property. If the fetch fails, you can also utilize the **error** property to show an error message. This makes it a wonderful option for developers that wish to have precise control over the state management of their applications.
 
 ## CONCLUSION
 
-Overall, React Query is a powerful and lightweight library that makes it easy to manage and fetch data in a React application. It offers a simple and intuitive API, excellent performance and a high degree of flexibility, making it a great choice for developers. 
+Overall, React Query is a powerful and lightweight library that makes it easy to manage and fetch data in a React application. It offers a simple and intuitive API, excellent performance and a high degree of flexibility, making it a great choice for developers. You can also check out the [react query](https://react-query-v3.tanstack.com/overview) documentation to assist you further in getting started.
 
 
 
